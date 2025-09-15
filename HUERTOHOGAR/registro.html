@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Estilos principales -->
-  <link rel="stylesheet" href="assets/image.css">
-  <link rel="stylesheet" href="assets/style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-  
-  <title>Registro - HuertoHogar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/image.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <title>Registro - HUERTO HOGAR</title>
 </head>
 
-<body class="bg-light" style="font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
-<!-- Navbar estilo home.html -->
-  <header>
-      <nav class="navbar custom-navbar">
-          <div class="d-flex w-100 align-items-center">
-              <!-- Título principal -->
-              <span class="custom-title me-4">
-                  <img src="assets/picture/logo.jpg" alt="Logo Hogar" class="navbar-logo me-2">
-                  HUERTO HOGAR
-              </span>
-              <!-- Links -->
-              <div class="d-flex ms-2">
-                  <a class="nav-link" href="home.html">
-                      <svg width="18" height="18" fill="currentColor" class="me-1"><use href="#icon-home"/></svg>
-                      Home
-                  </a>
+<body>
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar custom-navbar">
+            <div class="d-flex w-100 align-items-center">
+                <!-- Título principal -->
+                <span class="custom-title me-4">
+                    <img src="assets/picture/logo.jpg" alt="Logo Hogar" class="navbar-logo me-2">
+                    HUERTO HOGAR
+                </span>
+                <!-- Links -->
+                <div class="d-flex ms-2">
+                    <a class="nav-link" href="home.html">Home</a>
                     <div class="dropdown productos-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Productos
@@ -41,13 +37,145 @@
                             <li><a class="dropdown-item" href="./categorias/ProductosLacteos.html">Productos Lácteos</a></li>
                         </ul>
                     </div>
-                  <a class="nav-link" href="mis_compras.html">
-                      <svg width="16" height="16" fill="currentColor" class="me-1"><use href="#icon-bag"/></svg>
-                      Mis compras
-                  </a>
-                  <a class="nav-link" href="envios.html">
-                      <svg width="17" height="18" fill="currentColor" class="me-1"><use href="#icon-cart"/></svg>
-                      Envios
+                </div>
+                <div class="flex-grow-1"></div>
+                <div class="d-flex align-items-center">
+                    <!-- Auth section -->
+                    <div id="auth-section">
+                        <a class="nav-link me-3" href="login.html" id="btn-login">Ingresar</a>
+                        <a class="nav-link" href="registro.html" id="btn-register">Registro</a>
+                    </div>
+                    
+                    <!-- Carrito -->
+                    <a class="carrito-icon ms-4 position-relative" href="carrito.html" aria-label="Ver carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                        </svg>
+                        <span id="cartBadge" class="carrito-badge js-cart-count d-none">0</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center mb-4">Registro</h2>
+                        
+                        <!-- Alert for messages -->
+                        <div id="registerAlert" class="alert d-none" role="alert"></div>
+                        
+                        <form id="registerForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required minlength="6">
+                                <div class="form-text">Mínimo 6 caracteres</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg" id="registerBtn">
+                                    <span class="spinner-border spinner-border-sm d-none me-2" id="registerSpinner"></span>
+                                    Registrarse
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="text-center mt-3">
+                            <p class="mb-0">¿Ya tienes cuenta? 
+                                <a href="login.html" class="text-decoration-none">Inicia sesión aquí</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="function.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already authenticated
+            if (window.HHAuth && window.HHAuth.isAuthenticated()) {
+                window.location.href = 'home.html';
+                return;
+            }
+
+            const registerForm = document.getElementById('registerForm');
+            const registerBtn = document.getElementById('registerBtn');
+            const registerSpinner = document.getElementById('registerSpinner');
+            const registerAlert = document.getElementById('registerAlert');
+
+            function showAlert(message, type = 'danger') {
+                registerAlert.className = `alert alert-${type}`;
+                registerAlert.textContent = message;
+                registerAlert.classList.remove('d-none');
+            }
+
+            function hideAlert() {
+                registerAlert.classList.add('d-none');
+            }
+
+            registerForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                hideAlert();
+
+                const formData = new FormData(registerForm);
+                const registerData = {
+                    name: formData.get('name').trim(),
+                    email: formData.get('email').trim(),
+                    password: formData.get('password'),
+                    confirmPassword: formData.get('confirmPassword')
+                };
+
+                // Validation
+                if (registerData.password !== registerData.confirmPassword) {
+                    showAlert('Las contraseñas no coinciden');
+                    return;
+                }
+
+                if (registerData.password.length < 6) {
+                    showAlert('La contraseña debe tener al menos 6 caracteres');
+                    return;
+                }
+
+                // Show loading state
+                registerBtn.disabled = true;
+                registerSpinner.classList.remove('d-none');
+
+                try {
+                    await window.HHAuth.register(registerData.name, registerData.email, registerData.password);
+                    showAlert('¡Registro exitoso! Redirigiendo al inicio de sesión...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1500);
+                } catch (error) {
+                    showAlert(error.message || 'Error al registrarse. Intente nuevamente.');
+                } finally {
+                    registerBtn.disabled = false;
+                    registerSpinner.classList.add('d-none');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
                   </a>
               </div>
               <div class="flex-grow-1"></div>

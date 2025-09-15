@@ -34,24 +34,142 @@ function toggleProfile() {
     }
 }
 
-/* HuertoHogar - Carrito simple con localStorage
+/* HuertoHogar - Authentication API
+   API global: window.HHAuth
+*/
+(function(){
+  const API_BASE = '';
+
+  // API fetch wrapper with credentials
+  async function apiFetch(url, options = {}) {
+    const config = {
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+      },
+      ...options
+    };
+
+    const response = await fetch(API_BASE + url, config);
+    
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: 'Network error' }));
+      throw new Error(error.error || `HTTP ${response.status}`);
+    }
+    
+    return response;
+  }
+
+  // Authentication functions
+  async function register(name, email, password) {
+    const response = await apiFetch('/api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password })
+    });
+    return response.json();
+  }
+
+  async function login(email, password) {
+    const response = await apiFetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    });
+    const data = await response.json();
+    
+    // Trigger navbar update
+    updateNavbar();
+    return true;
+  }
+
+  async function logout() {
+    await apiFetch('/api/auth/logout', { method: 'POST' });
+    updateNavbar();
+    window.location.href = 'home.html';
+  }
+
+  async function getCurrentUser() {
+    try {
+      const response = await apiFetch('/api/auth/me');
+      return await response.json();
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function isAuthenticated() {
+    // This is a simple check - in a real app you might want to verify the token
+    return document.cookie.includes('token=');
+  }
+
+  function requireAuth() {
+    if (!isAuthenticated()) {
+      window.location.href = 'login.html';
+      return false;
+    }
+    return true;
+  }
+
+  // Update navbar based on authentication state
+  function updateNavbar() {
+    const authSection = document.getElementById('auth-section');
+    const userSection = document.getElementById('user-section');
+    const authenticatedNav = document.getElementById('authenticated-nav');
+    const logoutBtn = document.getElementById('btn-logout');
+
+    if (isAuthenticated()) {
+      if (authSection) authSection.classList.add('d-none');
+      if (userSection) userSection.classList.remove('d-none');
+      if (authenticatedNav) authenticatedNav.classList.remove('d-none');
+    } else {
+      if (authSection) authSection.classList.remove('d-none');
+      if (userSection) userSection.classList.add('d-none');
+      if (authenticatedNav) authenticatedNav.classList.add('d-none');
+    }
+
+    // Add logout event listener
+    if (logoutBtn) {
+      logoutBtn.onclick = function(e) {
+        e.preventDefault();
+        logout();
+      };
+    }
+  }
+
+  // Expose API
+  window.HHAuth = {
+    apiFetch,
+    register,
+    login,
+    logout,
+    getCurrentUser,
+    isAuthenticated,
+    requireAuth,
+    updateNavbar
+  };
+
+  // Update navbar on page load
+  document.addEventListener('DOMContentLoaded', updateNavbar);
+})();
+
+/* HuertoHogar - Carrito simple con sessionStorage (no localStorage)
    API global: window.HHCart
 */
 (function(){
-  const CART_KEY = 'hh_cart';
+  const CART_KEY = 'CART'; // Changed to match requirements
 
   const fmtCLP = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 });
   function formatCLP(n){ try { return fmtCLP.format(n || 0); } catch { return `$${(n||0).toLocaleString('es-CL')} CLP`; } }
 
   function get(){
     try{
-      const raw = localStorage.getItem(CART_KEY);
+      const raw = sessionStorage.getItem(CART_KEY); // Changed to sessionStorage
       const arr = raw ? JSON.parse(raw) : [];
       return Array.isArray(arr) ? arr : [];
     }catch{ return []; }
   }
   function save(arr){
-    localStorage.setItem(CART_KEY, JSON.stringify(arr));
+    sessionStorage.setItem(CART_KEY, JSON.stringify(arr)); // Changed to sessionStorage
     dispatch('change');
   }
   function dispatch(type){
@@ -131,10 +249,18 @@ function toggleProfile() {
     save([]);
   }
 
+  // Show cart count badge when items exist
   function updateCartCountBadges(){
     const n = count();
     const els = document.querySelectorAll('.js-cart-count');
-    els.forEach(el => { el.textContent = String(n); });
+    els.forEach(el => { 
+      el.textContent = String(n);
+      if (n > 0) {
+        el.classList.remove('d-none');
+      } else {
+        el.classList.add('d-none');
+      }
+    });
   }
 
   // Exponer API global
@@ -148,6 +274,94 @@ function toggleProfile() {
   document.addEventListener('hhcart:change', updateCartCountBadges);
   // Refrescar a la carga inicial
   document.addEventListener('DOMContentLoaded', updateCartCountBadges);
+})();
+
+/* HuertoHogar - Product add to cart handling
+   Handles [data-add-to-cart] buttons with product data attributes
+*/
+(function(){
+  function handleAddToCart(event) {
+    event.preventDefault();
+    
+    const button = event.currentTarget;
+    const productId = button.getAttribute('data-product-id');
+    const name = button.getAttribute('data-name');
+    const price = parseFloat(button.getAttribute('data-price'));
+    const qty = parseInt(button.getAttribute('data-qty') || '1');
+
+    if (!productId || !name || !price) {
+      console.error('Missing product data attributes:', { productId, name, price });
+      showToast('Error al agregar producto al carrito', 'error');
+      return;
+    }
+
+    const product = {
+      id: productId,
+      name: name,
+      price: price,
+      stock: 999 // Default stock, could be added as data attribute
+    };
+
+    try {
+      window.HHCart.add(product, qty);
+      showToast(`${name} agregado al carrito`, 'success');
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      showToast('Error al agregar producto al carrito', 'error');
+    }
+  }
+
+  function showToast(message, type = 'info') {
+    // Create toast if Bootstrap is available
+    if (typeof bootstrap !== 'undefined') {
+      // Create toast container if it doesn't exist
+      let toastContainer = document.getElementById('toast-container');
+      if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+        toastContainer.style.zIndex = '1055';
+        document.body.appendChild(toastContainer);
+      }
+
+      const toastId = 'toast-' + Date.now();
+      const bgClass = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-info';
+      
+      const toastElement = document.createElement('div');
+      toastElement.id = toastId;
+      toastElement.className = `toast ${bgClass} text-white`;
+      toastElement.setAttribute('role', 'alert');
+      toastElement.innerHTML = `
+        <div class="toast-body">
+          ${message}
+          <button type="button" class="btn-close btn-close-white float-end" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+
+      toastContainer.appendChild(toastElement);
+      
+      const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
+      toast.show();
+
+      // Remove toast element after hiding
+      toastElement.addEventListener('hidden.bs.toast', () => {
+        toastElement.remove();
+      });
+    } else {
+      // Fallback to alert
+      alert(message);
+    }
+  }
+
+  // Add event listeners on DOM content loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Bind click listeners to all [data-add-to-cart] elements
+    const addToCartButtons = document.querySelectorAll('[data-add-to-cart]');
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', handleAddToCart);
+    });
+  });
+
 })();
 
 
