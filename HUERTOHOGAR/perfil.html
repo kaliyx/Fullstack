@@ -26,10 +26,7 @@
               </span>
               <!-- Links -->
               <div class="d-flex ms-2">
-                  <a class="nav-link" href="home.html">
-                      <svg width="18" height="18" fill="currentColor" class="me-1"><use href="#icon-home"/></svg>
-                      Home
-                  </a>
+                  <a class="nav-link" href="home.html">Home</a>
                     <div class="dropdown productos-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Productos
@@ -41,119 +38,126 @@
                             <li><a class="dropdown-item" href="./categorias/ProductosLacteos.html">Productos Lácteos</a></li>
                         </ul>
                     </div>
-                  <a class="nav-link" href="mis_compras.html">
-                      <svg width="16" height="16" fill="currentColor" class="me-1"><use href="#icon-bag"/></svg>
-                      Mis compras
-                  </a>
-                  <a class="nav-link" href="envios.html">
-                      <svg width="17" height="18" fill="currentColor" class="me-1"><use href="#icon-cart"/></svg>
-                      Envios
-                  </a>
+                  <!-- Auth-protected links -->
+                  <div id="authenticated-nav" class="d-none">
+                      <a class="nav-link active" href="perfil.html">Perfil</a>
+                      <a class="nav-link" href="MisCompras.html">Mis Compras</a>
+                  </div>
               </div>
               <div class="flex-grow-1"></div>
               <div class="d-flex align-items-center">
-                  <button type="button" class="btn btn-outline-success me-3" id="perfilBtn" data-bs-toggle="modal" data-bs-target="#perfilModal">
-                      <svg width="22" height="22" fill="currentColor" class="me-1" viewBox="0 0 16 16">
-                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4.5 8a.5.5 0 0 0 .5-.5v-1A5.5 5.5 0 0 0 8 9a5.5 5.5 0 0 0-5 5.5v1a.5.5 0 0 0 .5.5h9z"/>
-                      </svg>
-                      <span id="perfilBtnText">Ingresa/Regístrate</span>
-                  </button>
-                  <a class="carrito-icon me-4" href="#">
+                  <!-- Auth section -->
+                  <div id="auth-section">
+                      <a class="nav-link me-3" href="login.html" id="btn-login">Ingresar</a>
+                      <a class="nav-link" href="registro.html" id="btn-register">Registro</a>
+                  </div>
+                  <div id="user-section" class="d-none">
+                      <a class="nav-link me-3" href="#" id="btn-logout">Cerrar Sesión</a>
+                  </div>
+                  
+                  <a class="carrito-icon ms-4 position-relative" href="carrito.html" aria-label="Ver carrito">
                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
                           <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
                       </svg>
+                      <span id="cartBadge" class="carrito-badge js-cart-count d-none">0</span>
                   </a>
               </div>
           </div>
       </nav>
-      <!-- Modal de perfil -->
-      <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="perfilModalLabel">Iniciar sesión</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                  </div>
-                  <div class="modal-body">
-                      <form id="loginForm">
-                          <div class="mb-3">
-                              <label for="loginEmail" class="form-label">Correo electrónico</label>
-                              <input type="email" class="form-control" id="loginEmail" required>
-                          </div>
-                          <div class="mb-3">
-                              <label for="loginPassword" class="form-label">Contraseña</label>
-                              <input type="password" class="form-control" id="loginPassword" required>
-                          </div>
-                          <button type="submit" class="btn btn-success w-100">Iniciar sesión</button>
-                      </form>
-                      <div class="mt-3 text-center">
-                          <a href="registro.html" class="link-primary">¿No tienes cuenta? Regístrate aquí</a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
   </header>
 
   <!-- Perfil -->
   <main class="container my-5">
-    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <!-- Loading state -->
+    <div id="loading" class="d-flex justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-message" class="alert alert-danger d-none" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <p id="error-text">No se pudo cargar el perfil.</p>
+    </div>
+
+    <!-- Profile form -->
+    <div class="card shadow-sm mx-auto d-none" style="max-width: 600px;" id="profile-card">
       <div class="card-body">
         <h2 class="text-center mb-4 fw-bold" style="font-family: var(--font-serif); color: var(--color-primary);">Gestión De Mi Perfil</h2>
 
-        <!-- Nombre completo -->
-        <div class="mb-3 d-flex align-items-center">
-          <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Nombre completo:</label>
-          <input type="text" class="form-control flex-grow-3 me-2" id="nombre" value="Juan Pérez" disabled>
-          <button class="btn btn-outline-success btn-sm" onclick="editarCampo('nombre')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-pencil" viewBox="0 0 16 16">
-              <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
-            </svg>
-          </button>
-        </div>
+        <!-- Alert for messages -->
+        <div id="profileAlert" class="alert d-none" role="alert"></div>
 
-        <!-- Dirección -->
-        <div class="mb-3 d-flex align-items-center">
-          <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Dirección:</label>
-          <input type="text" class="form-control flex-grow-2 me-2" id="calle" value="Calle Falsa 123" disabled>
-          <input type="text" class="form-control flex-grow-2 me-2" id="comuna" value="Santiago" disabled>
-          <button class="btn btn-outline-success btn-sm" onclick="editarDireccion()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-pencil" viewBox="0 0 16 16">
-              <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
-            </svg>
-          </button>
-        </div>
+        <form id="profileForm">
+          <!-- Nombre completo -->
+          <div class="mb-3 d-flex align-items-center">
+            <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Nombre completo:</label>
+            <input type="text" class="form-control flex-grow-3 me-2" id="nombre" name="name" disabled>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="editarCampo('nombre')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil" viewBox="0 0 16 16">
+                <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
+              </svg>
+            </button>
+          </div>
 
-        <!-- Teléfono -->
-        <div class="mb-3 d-flex align-items-center">
-          <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Teléfono:</label>
-          <input type="tel" class="form-control flex-grow-3 me-2" id="telefono" value="+56 9 1234 5678" disabled>
-          <button class="btn btn-outline-success btn-sm" onclick="editarCampo('telefono')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-pencil" viewBox="0 0 16 16">
-              <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
-            </svg>
-          </button>
-        </div>
+          <!-- Dirección -->
+          <div class="mb-3 d-flex align-items-center">
+            <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Dirección:</label>
+            <input type="text" class="form-control flex-grow-3 me-2" id="direccion" name="address" placeholder="Ej: Calle Falsa 123, Santiago" disabled>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="editarCampo('direccion')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil" viewBox="0 0 16 16">
+                <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
+              </svg>
+            </button>
+          </div>
 
-        <!-- Correo -->
-        <div class="mb-3 d-flex align-items-center">
-          <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Correo electrónico:</label>
-          <input type="email" class="form-control flex-grow-3 me-2" id="correo" value="usuario@gmail.com" disabled>
-          <button class="btn btn-outline-success btn-sm" onclick="editarCampo('correo')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-pencil" viewBox="0 0 16 16">
-              <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
-            </svg>
-          </button>
-        </div>
+          <!-- Teléfono -->
+          <div class="mb-3 d-flex align-items-center">
+            <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Teléfono:</label>
+            <input type="tel" class="form-control flex-grow-3 me-2" id="telefono" name="phone" placeholder="Ej: +56 9 1234 5678" disabled>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="editarCampo('telefono')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil" viewBox="0 0 16 16">
+                <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
+              </svg>
+            </button>
+          </div>
 
-        <!-- Guardar cambios -->
-        <div class="text-center mt-4">
-          <button type="button" class="btn btn-success w-100" onclick="guardarPerfil()">Guardar Cambios</button>
-        </div>
+          <!-- Correo -->
+          <div class="mb-3 d-flex align-items-center">
+            <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Correo electrónico:</label>
+            <input type="email" class="form-control flex-grow-3 me-2" id="correo" name="email" disabled>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="editarCampo('correo')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil" viewBox="0 0 16 16">
+                <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Nueva contraseña (opcional) -->
+          <div class="mb-3 d-flex align-items-center">
+            <label class="form-label me-2 mb-0 flex-grow-1" style="font-family: var(--font-sans);">Nueva contraseña:</label>
+            <input type="password" class="form-control flex-grow-3 me-2" id="password" name="password" placeholder="Dejar vacío para mantener actual" disabled>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="editarCampo('password')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil" viewBox="0 0 16 16">
+                <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 12.207 6.086 9.914 3.793 11.207 2.5zm1.586 3L10.5 3.207 3 10.707V13h2.293l7.5-7.5z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Guardar cambios -->
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success w-100" id="saveBtn">
+              <span class="spinner-border spinner-border-sm d-none me-2" id="saveSpinner"></span>
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </main>
@@ -164,24 +168,126 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="function.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Require authentication
+      if (window.HHAuth && !window.HHAuth.requireAuth()) {
+        return; // requireAuth will redirect if not authenticated
+      }
+
+      // Update navbar
+      if (window.HHAuth) {
+        window.HHAuth.updateNavbar();
+      }
+
+      loadProfile();
+
+      const profileForm = document.getElementById('profileForm');
+      const saveBtn = document.getElementById('saveBtn');
+      const saveSpinner = document.getElementById('saveSpinner');
+      const profileAlert = document.getElementById('profileAlert');
+
+      function showAlert(message, type = 'danger') {
+        profileAlert.className = `alert alert-${type}`;
+        profileAlert.textContent = message;
+        profileAlert.classList.remove('d-none');
+      }
+
+      function hideAlert() {
+        profileAlert.classList.add('d-none');
+      }
+
+      async function loadProfile() {
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const profileCard = document.getElementById('profile-card');
+
+        try {
+          loading.classList.remove('d-none');
+          errorMessage.classList.add('d-none');
+          profileCard.classList.add('d-none');
+
+          const response = await window.HHAuth.apiFetch('/api/profile');
+          const user = await response.json();
+
+          loading.classList.add('d-none');
+
+          // Populate form
+          document.getElementById('nombre').value = user.name || '';
+          document.getElementById('direccion').value = user.address || '';
+          document.getElementById('telefono').value = user.phone || '';
+          document.getElementById('correo').value = user.email || '';
+          document.getElementById('password').value = '';
+
+          profileCard.classList.remove('d-none');
+
+        } catch (error) {
+          console.error('Error loading profile:', error);
+          loading.classList.add('d-none');
+          errorText.textContent = error.message || 'No se pudo cargar el perfil.';
+          errorMessage.classList.remove('d-none');
+        }
+      }
+
+      profileForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        hideAlert();
+
+        const formData = new FormData(profileForm);
+        const updateData = {};
+
+        // Only include fields that have values
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const phone = formData.get('phone');
+        const address = formData.get('address');
+        const password = formData.get('password');
+
+        if (name && name.trim()) updateData.name = name.trim();
+        if (email && email.trim()) updateData.email = email.trim();
+        if (phone && phone.trim()) updateData.phone = phone.trim();
+        if (address && address.trim()) updateData.address = address.trim();
+        if (password && password.trim()) updateData.password = password.trim();
+
+        // Show loading state
+        saveBtn.disabled = true;
+        saveSpinner.classList.remove('d-none');
+
+        try {
+          const response = await window.HHAuth.apiFetch('/api/profile', {
+            method: 'PUT',
+            body: JSON.stringify(updateData)
+          });
+
+          const result = await response.json();
+          showAlert('Perfil actualizado correctamente.', 'success');
+
+          // Disable all fields again
+          profileForm.querySelectorAll('input').forEach(input => {
+            input.disabled = true;
+          });
+
+          // Clear password field
+          document.getElementById('password').value = '';
+
+        } catch (error) {
+          showAlert(error.message || 'Error al actualizar el perfil. Intente nuevamente.');
+        } finally {
+          saveBtn.disabled = false;
+          saveSpinner.classList.add('d-none');
+        }
+      });
+    });
+
     // Función para habilitar la edición de un campo
     function editarCampo(id) {
       const campo = document.getElementById(id);
       campo.disabled = !campo.disabled;
-      campo.focus();
-    }
-
-    // Función para habilitar edición de dirección completa
-    function editarDireccion() {
-      document.getElementById('calle').disabled = false;
-      document.getElementById('comuna').disabled = false;
-      document.getElementById('calle').focus();
-    }
-
-    function guardarPerfil() {
-      alert('Perfil actualizado correctamente.');
-      // Aquí podrías enviar los datos a tu backend
+      if (!campo.disabled) {
+        campo.focus();
+      }
     }
   </script>
 </body>
