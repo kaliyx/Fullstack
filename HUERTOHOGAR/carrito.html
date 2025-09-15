@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrito - HUERTO HOGAR</title>
+
+  <link rel="stylesheet" href="assets/image.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body id="Pagina Principal">
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar custom-navbar">
+      <div class="d-flex w-100 align-items-center position-relative">
+        <span class="custom-title me-4">
+          <img src="assets/picture/logo.jpg" alt="Logo Hogar" class="navbar-logo me-2">
+          HUERTO HOGAR
+        </span>
+        <div class="d-flex ms-2">
+          <a class="nav-link" href="./home.html">Home</a>
+          <div class="dropdown productos-dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Productos
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="productosDropdown">
+              <li><a class="dropdown-item" href="./categorias/FrutasFrescas.html">Frutas Frescas</a></li>
+              <li><a class="dropdown-item" href="./categorias/VerdurasOrganicas.html">Verduras Orgánicas</a></li>
+              <li><a class="dropdown-item" href="./categorias/ProductosOrganicos.html">Productos Orgánicos</a></li>
+              <li><a class="dropdown-item" href="./categorias/ProductosLacteos.html">Productos Lácteos</a></li>
+            </ul>
+          </div>
+          <a class="nav-link" href="./mis_compras.html">Mis compras</a>
+          <a class="nav-link" href="./gestor.html">Envios</a>
+        </div>
+        <div class="flex-grow-1"></div>
+        <div class="d-flex align-items-center position-relative">
+          <a class="carrito-icon me-4 position-relative" href="./carrito.html" aria-label="Ver carrito">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+            </svg>
+            <span id="cartBadge" class="carrito-badge d-none">0</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO CARRITO -->
+  <main class="container py-5">
+    <h1 class="title h2 mb-4">Tu carrito</h1>
+
+    <div id="carritoVacio" class="empty-cart card border-0 p-5 text-center d-none">
+      <div class="mb-3">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none">
+          <path d="M3 3h2l.4 2M7 13h9l3-7H6.4M7 13l-2-8M7 13l-2 6h13m0 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-9 2a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" stroke="#2E8B57" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="text-muted mb-4">Tu carrito está vacío.</p>
+      <a href="./home.html" class="btn btn-success">Ir a comprar</a>
+    </div>
+
+    <div id="carritoVista" class="row g-4 d-none">
+      <div class="col-12 col-lg-8">
+        <div class="card carrito-panel">
+          <div class="card-body">
+            <div id="cartItems" class="vstack gap-3"></div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-outline-danger" data-clear-cart>Vaciar carrito</button>
+          <a class="btn btn-outline-success" href="./home.html">Seguir comprando</a>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card carrito-summary">
+          <div class="card-body">
+            <h2 class="h5 mb-3">Resumen</h2>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Productos</span>
+              <strong id="sumProductos">0</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Subtotal</span>
+              <strong id="sumSubtotal">$0</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <span class="text-muted">Envío</span>
+              <span class="text-muted">Calculado al pagar</span>
+            </div>
+            <hr/>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="h6 m-0">Total</span>
+              <span id="sumTotal" class="h5 m-0">$0</span>
+            </div>
+            <button class="btn btn-success w-100" data-checkout disabled>Ir a pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    <p class="mb-0">Huerto Hogar - &copy; 2025</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/Funciones.js"></script>
+</body>
+</html>
