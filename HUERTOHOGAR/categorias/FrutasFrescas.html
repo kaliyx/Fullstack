@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/image.css">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <title>Frutas Frescas - HUERTO HOGAR</title>
+</head>
+
+<body id="Pagina Principal">
+     <!-- NAVBAR -->
+    <header>
+        <nav class="navbar custom-navbar">
+            <div class="d-flex w-100 align-items-center">
+                <span class="custom-title me-4">
+                    <img src="../assets/picture/logo.jpg" alt="Logo Hogar" class="navbar-logo me-2">
+                    HUERTO HOGAR
+                </span>
+                <div class="d-flex ms-2">
+                    <a class="nav-link" href="../home.html">Home</a>
+                    <div class="dropdown productos-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productosDropdown">
+                            <li><a class="dropdown-item" href="./categorias/FrutasFrescas.html">Frutas Frescas</a></li>
+                            <li><a class="dropdown-item" href="./categorias/VerdurasOrganicas.html">Verduras Orgánicas</a></li>
+                            <li><a class="dropdown-item" href="./categorias/ProductosOrganicos.html">Productos Orgánicos</a></li>
+                            <li><a class="dropdown-item" href="./categorias/ProductosLacteos.html">Productos Lácteos</a></li>
+                        </ul>
+                    </div>
+                    <a class="nav-link" href="../mis_compras.html">Mis compras</a>
+                    <a class="nav-link" href="../gestor.html">Envios</a>
+                </div>
+                <div class="flex-grow-1"></div>
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-success me-3" id="perfilBtn" data-bs-toggle="modal" data-bs-target="#perfilModal">
+                        <svg width="22" height="22" fill="currentColor" class="me-1" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4.5 8a.5.5 0 0 0 .5-.5v-1A5.5 5.5 0 0 0 8 9a5.5 5.5 0 0 0-5 5.5v1a.5.5 0 0 0 .5.5h9z"/>
+                        </svg>
+                        <span id="perfilBtnText">Ingresa/Regístrate</span>
+                    </button>
+                    <a class="carrito-icon me-4" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Productos en la categoría Frutas Frescas -->
+    <h2 class="text-center my-4">Frutas Frescas</h2>
+    <section class="row row-cols-1 row-cols-md-4 g-4 mx-auto" style="max-width: 90vw;">
+        <!-- Producto Card: Manzana -->
+        <div class="col">
+            <a href="../productos/ManzanaFuji.html" class="card h-100 text-decoration-none text-dark">
+                <img src="../assets/picture/Manzana.jpg" class="card-img-top" alt="Manzanas Fuji">
+                <div class="card-body">
+                    <h5 class="card-title">Manzanas Fuji</h5>
+                    <p class="card-text">Manzanas Fuji frescas y crujientes, perfectas para disfrutar solas o en ensaladas.</p>
+                    <p class="mb-2 fw-bold">Stock: 150 kilos</p>
+                    <p class="mb-2 fw-bold">Precio: $1,200/kg</p>
+                </div>
+            </a>
+        </div>
+        <!-- Producto Card: Naranja -->
+        <div class="col">
+            <a href="../productos/NaranjaValencia.html" class="card h-100 text-decoration-none text-dark">
+                <img src="../assets/picture/Naranja.jpg" class="card-img-top" alt="Naranjas Valencia">
+                <div class="card-body">
+                    <h5 class="card-title">Naranjas Valencia</h5>
+                    <p class="card-text">Naranjas frescas y jugosas, ideales para zumos y postres.</p>
+                    <p class="mb-2 fw-bold">Stock: 200 kilos</p>
+                    <p class="mb-2 fw-bold">Precio: $1,000/kg</p>
+                </div>
+            </a>
+        </div>
+        <!-- Producto Card: Plátano -->
+        <div class="col">
+            <a href="../productos/PlatanoCavendish.html" class="card h-100 text-decoration-none text-dark">
+                <img src="../assets/picture/Platano.jpg" class="card-img-top" alt="Plátanos Cavendish">
+                <div class="card-body">
+                    <h5 class="card-title">Plátanos Cavendish</h5>
+                    <p class="card-text">Plátanos Cavendish frescos y dulces, perfectos para meriendas y batidos.</p>
+                    <p class="mb-2 fw-bold">Stock: 100 kilos</p>
+                    <p class="mb-2 fw-bold">Precio: $900/unidad</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer / Información final -->
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+        <p class="mb-0">Huerto Hogar - &copy; 2025</p>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../function.js"></script>
+</body>
+</html>

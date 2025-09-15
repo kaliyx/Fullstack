@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/image.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <title>HOME - HUERTO HOGAR</title>
+</head>
+
+<body id="Pagina Principal">
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar custom-navbar">
+            <div class="d-flex w-100 align-items-center">
+                <!-- Título principal -->
+                <span class="custom-title me-4">
+                    <img src="assets/picture/logo.jpg" alt="Logo Hogar" class="navbar-logo me-2">
+                    HUERTO HOGAR
+                </span>
+                <!-- Links -->
+                <div class="d-flex ms-2">
+                    <a class="nav-link" href="home.html">
+                        Home
+                    </a>
+                    <div class="dropdown productos-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productosDropdown">
+                            <li><a class="dropdown-item" href="./categorias/FrutasFrescas.html">Frutas Frescas</a></li>
+                            <li><a class="dropdown-item" href="./categorias/VerdurasOrganicas.html">Verduras Orgánicas</a></li>
+                            <li><a class="dropdown-item" href="./categorias/ProductosOrganicos.html">Productos Orgánicos</a></li>
+                            <li><a class="dropdown-item" href="./categorias/ProductosLacteos.html">Productos Lácteos</a></li>
+                        </ul>
+                    </div>
+                    <a class="nav-link" href="mis_compras.html">
+                        Mis compras
+                    </a>
+                    <a class="nav-link" href="gestor.html">
+                        Envios
+                    </a>
+                </div>
+                <div class="flex-grow-1"></div>
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-success me-3" id="perfilBtn" data-bs-toggle="modal" data-bs-target="#perfilModal">
+                        <svg width="22" height="22" fill="currentColor" class="me-1" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4.5 8a.5.5 0 0 0 .5-.5v-1A5.5 5.5 0 0 0 8 9a5.5 5.5 0 0 0-5 5.5v1a.5.5 0 0 0 .5.5h9z"/>
+                        </svg>
+                        <span id="perfilBtnText">Ingresa/Regístrate</span>
+                    </button>
+                    <a class="carrito-icon me-4" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- Modal de perfil -->
+        <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="perfilModalLabel">Iniciar sesión</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Iniciar sesión</button>
+                        </form>
+                        <div class="mt-3 text-center">
+                            <a href="registro.html" class="link-primary">¿No tienes cuenta? Regístrate aquí</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CARD PRINCIPAL-->
+    <section class="card-bootstrap-row row g-0 bg-body-secondary position-relative">
+        <div class="card-img-col col-md-6 mb-md-0 p-md-4">
+            <img src="assets/picture/fondoCard.jpg" class="w-100" alt="ImagenCard">
+        </div>
+        <div class="card-text-col col-md-6 p-4 ps-md-0">
+            <h5 class="card-title mt-0">Frutas y Verduras frescas para el hogar</h5>
+            <p class="card-desc">Huerto Hogar es una tienda online especializada en la entrega de frutas y verduras frescas, proporcionamos productos frescos de calidad directamente desde el campo, garantizando sabor y frescura en cada entrega</p>
+        </div>
+    </section>
+
+    <!-- Productos más vendidos -->
+    <h2 class="text-center my-4">Productos más vendidos</h2>
+    <section class="row row-cols-1 row-cols-md-4 g-4 mx-auto" style="max-width: 90vw;">
+        <!-- Producto Card: Manzana -->
+        <div class="col">
+            <a href="./productos/ManzanaFuji.html" class="card h-100 text-decoration-none text-dark">
+                <img src="assets/picture/Manzana.jpg" class="card-img-top" alt="Manzanas Fuji">
+                <div class="card-body">
+                    <h5 class="card-title">Manzanas Fuji</h5>
+                    <p class="card-text">Manzanas Fuji frescas y crujientes, perfectas para disfrutar solas o en ensaladas.</p>
+                    <p class="mb-2 fw-bold">Stock: 150 kilos</p>
+                    <p class="mb-2 fw-bold">Precio: $1,200/kg</p>
+                </div>
+            </a>
+        </div>
+        <!-- Producto Card: Naranja -->
+        <div class="col">
+            <a href="./productos/NaranjaValencia.html" class="card h-100 text-decoration-none text-dark">
+                <img src="assets/picture/Naranja.jpg" class="card-img-top" alt="Naranjas Valencia">
+                <div class="card-body">
+                    <h5 class="card-title">Naranjas Valencia</h5>
+                    <p class="card-text">Naranjas frescas y jugosas, ideales para zumos y postres.</p>
+                    <p class="mb-2 fw-bold">Stock: 200 kilos</p>
+                    <p class="mb-2 fw-bold">Precio: $1,000/kg</p>
+                </div>
+            </a>
+        </div>
+        <!-- Producto Card: Lechuga -->
+        <div class="col">
+            <a href="./productos/PlatanoCavendish.html" class="card h-100 text-decoration-none text-dark">
+                <img src="assets/picture/Platano.jpg" class="card-img-top" alt="Plátanos Cavendish">
+                <div class="card-body">
+                    <h5 class="card-title">Plátanos Cavendish</h5>
+                    <p class="card-text">Plátanos Cavendish frescos y dulces, perfectos para meriendas y batidos.</p>
+                    <p class="mb-2 fw-bold">Stock: 100 kilos</p>
+                    <p class="mb-2 fw-bold">Precio: $900/unidad</p>
+                </div>
+            </a>
+        </div>
+        <!-- Producto Card: Cebolla -->
+        <div class="col">
+            <a href="./productos/ZanahoriaOrganica.html" class="card h-100 text-decoration-none text-dark">
+                <img src="assets/picture/Zanahoria.jpg" class="card-img-top" alt="Zanahorias Orgánicas">
+                <div class="card-body">
+                    <h5 class="card-title">Zanahorias Orgánicas</h5>
+                    <p class="card-text">Zanahorias frescas y crujientes, ideales para ensaladas y guisos.</p>
+                    <p class="mb-2 fw-bold">Stock: 180 kilos</p>
+                    <p class="mb-2 fw-bold">Precio: $1.190/kg</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <hr class="divisor-productos">
+
+    <!-- Productos generales -->
+    <section class="productos-caja my-4">
+        <div class="card text-bg-dark mb-3 card-ancha position-relative">
+            <img src="assets/picture/Verduras.jpg" class="card-img img-verduras" alt="Verduras">
+            <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="producto-title">VERDURAS</h5>
+            </div>
+        </div>
+        <div class="card text-bg-dark mb-3 card-ancha position-relative">
+            <img src="assets/picture/Frutas.jpg" class="card-img img-frutas" alt="Frutas">
+            <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="producto-title">FRUTAS</h5>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Información final -->
+    <section class="info-final-caja container my-5 py-4">
+        <div class="row g-4 align-items-stretch justify-content-center">
+            <div class="col-md-3 info-final-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box2" viewBox="0 0 16 16">
+                    <path d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3zM7.5 1H3.75L1.5 4h6zm1 0v3h6l-2.25-3zM15 5H1v10h14z"/>
+                </svg>
+                <h5 class="info-final-title">Zonas de Despacho</h5>
+                <p class="info-final-text">Santiago, Providencia, Cerrillos, La Reina, Macul, Peñalolén</p>
+            </div>
+            <div class="col-md-3 info-final-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.5.5 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103M10 1.91l-4-.8v12.98l4 .8zm1 12.98 4-.8V1.11l-4 .8zm-6-.8V1.11l-4 .8v12.98z"/>
+                </svg>
+                <h5 class="info-final-title">Despacho</h5>
+                <p class="info-final-text">
+                    Despacho de un día para otro<br>
+                    Lunes a Sábado<br>
+                    Compras sobre $20.000: Despacho gratuito<br>
+                    Pedidos menores: Costo $3.000
+                </p>
+            </div>
+            <div class="col-md-3 info-final-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                </svg>
+                <h5 class="info-final-title">Contacto</h5>
+                <p class="info-final-text">
+                    Móvil / Whatsapp: +569 5122 0663<br>
+                    E-mail: HuertoHogarOficial@gmail.com
+                </p>
+            </div>
+            <div class="col-md-3 info-final-col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                </svg>
+                <h5 class="info-final-title">Calidad</h5>
+                <p class="info-final-text">
+                    Huerto Hogar<br>
+                    Calidad Premium 100% Certificado
+                </p>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+        <p class="mb-0">Huerto Hogar - &copy; 2025</p>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="function.js"></script>
+</body>
+</html>
